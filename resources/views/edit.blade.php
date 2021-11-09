@@ -11,14 +11,23 @@
                     <form action="/posts/{{$post->id}}" method="post">
                         @csrf
                         @method('PUT')
+                        @if ($errors->any())
+                        <div class="alert alert-danger m-2">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="">Name</label>
-                                <input type="text" name="name" value="{{$post->name}}" class="form-control" placeholder="Enter Post" required>
+                                <input type="text" name="name" value="{{$post->name}}" class="form-control" placeholder="Enter Post" >
                             </div>
                             <div class="form-group">
                                 <label for="">Description</label>
-                                <textarea name="description" class="form-control" cols="20" rows="5" required>{{$post->description}}</textarea>
+                                <textarea name="description" class="form-control" cols="20" rows="5" >{{$post->description}}</textarea>
                             </div>
                                 <a href=""> <button class="btn btn-info mt-2">Update</button>
                                 </a>

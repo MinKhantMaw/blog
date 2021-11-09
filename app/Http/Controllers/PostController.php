@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Http\Requests\storePostRequests;
 
 class PostController extends Controller
 {
@@ -34,12 +35,20 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(storePostRequests $request)
     {
-        $data=new Post();
-        $data->name = $request->name;
-        $data->description = $request->description;
-        $data->save();
+        // $request->validate([
+        //     'name' => 'required|max:255',
+        //     'description' => 'required',
+        // ]);
+        // $data=new Post();
+        // $data->name = $request->name;
+        // $data->description = $request->description;
+        // $data->save();
+        Post::create([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
         return redirect('/posts');
     }
 
@@ -49,9 +58,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        $post=Post::findorFail($id);
+        // $post=Post::findorFail($id);
+        dd($post->categories->name);
         return view('show',compact('post'));
     }
 
@@ -61,9 +71,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        $post=Post::findOrFail($id);
+        // $post=Post::findOrFail($id);
         return view('edit', compact('post'));
     }
 
@@ -74,12 +84,20 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(storePostRequests $request, Post $post)
     {
-        $post=Post::findorFail($id);
-        $post->name=$request->name;
-        $post->description=$request->description;
-        $post->save();
+        // $post=Post::findorFail($id);
+        // $request->validate([
+        //     'name' => 'required|max:255',
+        //     'description' => 'required',
+        // ]);
+        // $post->name=$request->name;
+        // $post->description=$request->description;
+        // $post->save();
+        $post->update([
+            'name' => $request->name,
+            'description' => $request->description,
+        ]);
         return redirect('/posts');
     }
 

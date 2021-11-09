@@ -17,18 +17,23 @@
                             <p class="card-text">
                                 {{ $post->description }}
                             </p>
+                            <div class="form-row">
                                 <a href="/posts/{{ $post->id }}"> <button type="button"
                                         class="btn btn-primary">View</button>
                                 </a>
                                 <a href="/posts/{{ $post->id }}/edit"> <button type="button"
                                         class="btn btn-warning">Edit</button>
                                 </a>
-                            <form action="/posts/{{ $post->id }}" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger mt-1">Delete</button>
-                            </form>
-                            <hr>
+                                <form action="/posts/{{ $post->id }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <a href="">
+                                        <button type="submit" class="btn btn-danger mt-1">Delete</button>
+                                    </a>
+                                </form>
+                                <hr>
+                            </div>
+
                         @endforeach
 
                     </div>
