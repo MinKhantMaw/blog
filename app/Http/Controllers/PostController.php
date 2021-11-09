@@ -25,7 +25,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('create');
     }
 
     /**
@@ -36,7 +36,11 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data=new Post();
+        $data->name = $request->name;
+        $data->description = $request->description;
+        $data->save();
+        return redirect('/posts');
     }
 
     /**
@@ -47,7 +51,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post=Post::findorFail($id);
+        return view('show',compact('post'));
     }
 
     /**
@@ -58,7 +63,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post=Post::findOrFail($id);
+        return view('edit', compact('post'));
     }
 
     /**
@@ -70,7 +76,11 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post=Post::findorFail($id);
+        $post->name=$request->name;
+        $post->description=$request->description;
+        $post->save();
+        return redirect('/posts');
     }
 
     /**
@@ -81,6 +91,8 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+       Post::findorFail($id)->delete();
+       return redirect('/posts');
+
     }
 }
