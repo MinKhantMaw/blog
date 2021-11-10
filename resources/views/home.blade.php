@@ -6,6 +6,7 @@
             <div class="col-md-12 mt-2">
                 <div class="mb-2">
                     <a href="/posts/create" class="btn btn-secondary">New Post </a>
+                    <a href="logout" class="btn btn-danger">Logout</a>
                 </div>
                 <div class="card border shadow">
                     <div class="card-body">

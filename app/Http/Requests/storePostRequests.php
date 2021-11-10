@@ -26,6 +26,7 @@ class storePostRequests extends FormRequest
         return [
             'name' => 'required',
             'description' => 'required',
+            'category_id' => 'required',
         ];
     }
     public function messages()

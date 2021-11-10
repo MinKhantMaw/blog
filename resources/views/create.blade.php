@@ -29,6 +29,14 @@
                                 <label for="">Description</label>
                                 <textarea name="description" class="form-control" cols="20" rows="5">{{old('description')}}</textarea>
                             </div>
+                            <div class="form-group">
+                                <select name="category_id" class="form-control mt-2">
+                                    <option value="">Choose Category</option>
+                                    @foreach ($categories as $category)
+                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <a href=""> <button class="btn btn-info mt-2">Create</button>
                             </a>
                             <a href="/posts" class="btn btn-primary mt-2"> Back </a>

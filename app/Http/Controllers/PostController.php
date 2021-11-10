@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\storePostRequests;
 
@@ -13,10 +14,14 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
-        $data=Post::orderBy('id','desc')->get();
-       return view('home',compact('data'));
+        $data = Post::orderBy('id', 'desc')->get();
+        return view('home', compact('data'));
     }
 
     /**
@@ -26,7 +31,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('create');
+        $categories = Category::all();
+        return view('create', compact('categories'));
     }
 
     /**
@@ -45,9 +51,12 @@ class PostController extends Controller
         // $data->name = $request->name;
         // $data->description = $request->description;
         // $data->save();
+        // $validated=$request->validate();
+
         Post::create([
             'name' => $request->name,
             'description' => $request->description,
+            'category_id' => $request->category_id,
         ]);
         return redirect('/posts');
     }
@@ -61,8 +70,8 @@ class PostController extends Controller
     public function show(Post $post)
     {
         // $post=Post::findorFail($id);
-        dd($post->categories->name);
-        return view('show',compact('post'));
+        // dd($post->categories->name);
+        return view('show', compact('post'));
     }
 
     /**
@@ -74,7 +83,8 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         // $post=Post::findOrFail($id);
-        return view('edit', compact('post'));
+        $categories = Category::all();
+        return view('edit', compact('post', 'categories'));
     }
 
     /**
@@ -97,6 +107,7 @@ class PostController extends Controller
         $post->update([
             'name' => $request->name,
             'description' => $request->description,
+            'category_id' => $request->category_id,
         ]);
         return redirect('/posts');
     }
@@ -109,8 +120,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-       Post::findorFail($id)->delete();
-       return redirect('/posts');
-
+        Post::findorFail($id)->delete();
+        return redirect('/posts');
     }
 }

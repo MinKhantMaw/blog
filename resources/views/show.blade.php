@@ -13,7 +13,12 @@
 
                             <h5 class="card-title">{{ $post->name }}</h5>
                             <p class="card-text">
+
                                 {{ $post->description }}
+                            </p>
+                            <p class="card-text">
+
+                                {{ 'Category:' . $post->categories->name }}
                             </p>
                             <div class="mb-2">
                                 <a href="/posts" class="btn btn-secondary">Back </a>
